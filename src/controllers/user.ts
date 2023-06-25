@@ -68,4 +68,27 @@ const login = async (req: Request, res: Response) => {
   }
 };
 
-export { getAllUsers, register, login, checkUser };
+const saveWage = async (req: Request, res: Response) => {
+  // authMiddleware(req, res)
+  const { user_id, wage } = req.body;
+  try {
+    console.log(wage, "wage")
+    console.log(user_id, "user_id")
+
+    if (!wage) {
+      // console.log(wage, "wage")
+      return res.status(500).json({ error: "wage required" });
+    }
+    if (!user_id) {
+      // console.log(user_id, "user_id")
+      return res.status(500).json({ error: "user required" });
+    }
+    const person = await User.findOneAndUpdate({ _id: user_id }, { wage: wage });
+    const people = await User.findOne({ _id: user_id });
+    return res.status(201).send({ people });
+  } catch (err) {
+    return res.status(500).json({ error: "err" });
+  }
+};
+
+export { getAllUsers, register, login, checkUser, saveWage };
