@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/index.ts",
+      "use": "@vercel/node",
+      "config": {
+        "tsup": {
+          "format": ["cjs", "esm"],
+          "dts": true,
+          "minify": true
+        }
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/src/index.ts"
+    }
+  ]
+}
