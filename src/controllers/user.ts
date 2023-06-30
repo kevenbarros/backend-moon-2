@@ -73,7 +73,7 @@ const saveWage = async (req: Request, res: Response) => {
   const { user_id, wage } = req.body;
   try {
     console.log(wage, "wage")
-    console.log(user_id, "user_id")
+    console.log(user_id, "user_id ")
 
     if (!wage) {
       // console.log(wage, "wage")
