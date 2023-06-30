@@ -7,7 +7,7 @@ function userRoute(router: Router): void {
   router.post("/user/check", checkUser)
   router.post("/user/register", register);
   router.post("/user/login", login);
-  router.post("/user/save/wage", saveWage);
+  router.post("/user/wage", saveWage);
   router.post("/token", authMiddleware)
 }
 export { userRoute } 
