@@ -6,7 +6,10 @@ interface IGoal {
   dateInitial: Date;
   dateFinal: Date;
   valueRaised: number;
+  valueInitial: number;
   id_user: string;
+  complete: boolean;
+  _id?: string;
 }
 
 const GoalSchema = new Schema({
@@ -15,10 +18,12 @@ const GoalSchema = new Schema({
   dateInitial: Date,
   dateFinal: Date,
   valueRaised: Number,
+  valueInitial: Number,
+  complete: Boolean,
   id_user: String,
 });
 
-const Goal = model<IGoal>("Expense", GoalSchema);
+const Goal = model<IGoal>("Goal", GoalSchema);
 
 export { Goal }
 
