@@ -23,7 +23,7 @@ const GoalSchema = new Schema({
   id_user: String,
 });
 
-const Goal = model<IGoal>("Goal", GoalSchema);
+const Goal = model<IGoal>("goal", GoalSchema);
 
 export { Goal }
 

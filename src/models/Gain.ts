@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 
 export interface IGain {
   description: string;
@@ -20,7 +20,10 @@ const GainSchema = new Schema({
   value: Number,
   date: Date,
   paymentConditions: String,
-  paidGain: Boolean,
+  paidGain: {
+    type: Boolean,
+    required: false,
+  },
   category: String,
   observation: String,
   qtdInstallments: Number,

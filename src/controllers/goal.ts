@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express"
 import { Goal } from "../models/Goal"
 import authMiddleware from "../middleware/authMiddleware";
+import { GoalRecurrence } from "../models/GoalRecurrence";
 const createGoal = async (req: Request, res: Response) => {
   let {
     name,
@@ -59,11 +60,19 @@ const getOneGoal = async (req: Request, res: Response) => {
 const allList = async (req: Request, res: Response) => {
   let { id_user } = req.body;
   try {
-    // authMiddleware(req, res)
-    const goalUser = await Goal.find({
-      id_user
-    })
-    return res.status(201).json(goalUser);
+    const response = await Goal.aggregate([
+      { $match: { id_user } },
+      {
+        $lookup: {
+          from: "goalrecurrences",
+          localField: "_id",
+          foreignField: "id_goal",
+          as: "recurrence"
+        }
+      }
+    ]).exec()
+
+    return res.status(201).json(response);
   } catch (err) {
     return res.status(500).json({ error: err });
   }
