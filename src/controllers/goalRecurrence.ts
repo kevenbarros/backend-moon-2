@@ -36,6 +36,18 @@ const createGoalRecurrence = async (req: Request, res: Response) => {
     return res.status(500).json({ error: "err" });
   }
 }
+const getRecurrence = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  try {
+    authMiddleware(req, res)
+    const goalUser = await GoalRecurrence.findOne({
+      id
+    })
+    return res.status(201).json(goalUser);
+  } catch (err) {
+    return res.status(500).json({ error: err });
+  }
+}
 
 const allList = async (req: Request, res: Response) => {
   let { id_goal } = req.body;
@@ -49,4 +61,4 @@ const allList = async (req: Request, res: Response) => {
     return res.status(500).json({ error: err });
   }
 }
-export { allList, createGoalRecurrence };
+export { allList, createGoalRecurrence, getRecurrence };
